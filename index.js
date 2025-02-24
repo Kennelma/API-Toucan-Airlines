@@ -12,7 +12,7 @@ app.use(bp.json());
 
 // conectar a la base de datos (MYSQL)
 const mysqlConnection = mysql.createConnection({
-
+    
     host: 'localhost',
     user: 'root',
     password: '',
@@ -32,4 +32,3 @@ mysqlConnection.connect((err)=>{
 
 // Ejecutar el server en un puerto especifico.
 app.listen(3000,()=> console.log('Server running puerto: 3000'));
-
