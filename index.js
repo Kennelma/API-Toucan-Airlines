@@ -7,7 +7,6 @@ var app = express();
 //Constante para el paquete de bodyparser.
 const bp = require('body-parser');
 
-
 //Enviando los datos JSON a NODEJS API
 app.use(bp.json());
 
@@ -20,7 +19,6 @@ const mysqlConnection = mysql.createConnection({
     database: '1700PAC12025Equi3',
     multipleStatements: true
 
-
 });
 
 // Test de conexion abase de datos
@@ -30,11 +28,8 @@ mysqlConnection.connect((err)=>{
     } else { 
         console.log('Error al conectar la base.');
     }
-
-
 });
 
 // Ejecutar el server en un puerto especifico.
 app.listen(3000,()=> console.log('Server running puerto: 3000'));
-
 
