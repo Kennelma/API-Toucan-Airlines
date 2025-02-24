@@ -7,7 +7,6 @@ var app = express();
 //Constante para el paquete de bodyparser.
 const bp = require('body-parser');
 
-
 //Enviando los datos JSON a NODEJS API
 app.use(bp.json());
 
@@ -19,7 +18,6 @@ const mysqlConnection = mysql.createConnection({
     password: '',
     database: '1700PAC12025Equi3',
     multipleStatements: true
-
 
 });
 
