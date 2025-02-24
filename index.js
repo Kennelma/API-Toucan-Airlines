@@ -30,11 +30,8 @@ mysqlConnection.connect((err)=>{
     } else { 
         console.log('Error al conectar la base.');
     }
-
-
 });
 
 // Ejecutar el server en un puerto especifico.
 app.listen(3000,()=> console.log('Server running puerto: 3000'));
-
 
