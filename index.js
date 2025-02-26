@@ -8,6 +8,8 @@ var app = express();
 const bp = require('body-parser');
 
 
+
+
 //Enviando los datos JSON a NODEJS API
 app.use(bp.json());
 
