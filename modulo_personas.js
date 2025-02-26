@@ -1,37 +1,47 @@
 const mysql = require('mysql');
 const express = require('express');
-const bp = require('body-parser');
+const router = express.Router();
 
-// Crear el servidor de express
-const app = express();
 
-// Configurar el middleware para parsear JSON
-app.use(bp.json());
-
-// Configuración de la conexión a MySQL
-const mysqlConnection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
+// conectar a la base de datos (MYSQL)
+var mysqlConnection = mysql.createConnection({
+    host: '142.44.161.115',
+    user: '1700PAC12025Equi3',
+    port: 3306,
     password: '1700PAC12025Equi3#49',
     database: '1700PAC12025Equi3',
     multipleStatements: true
 });
 
-// Conectar a la base de datos
-mysqlConnection.connect((err) => {
-    if (err) {
-        console.log('Error al conectar a la base de datos:', err);
-        process.exit(1); // Detiene el servidor si no se conecta a la base de datos
-    } else {
-        console.log('Conexión exitosa a la base de datos');
+// Test de conexion abase de datos
+mysqlConnection.connect((err)=>{
+    if (!err){
+        console.log('Conexion Exitosa');
+    } else { 
+        console.log('Error al conectar la base de datos', err.message);
     }
 });
 
-// Importa el router para las rutas relacionadas con personas
-const personaRouter = require('./modulo_personas');
-app.use('/', personaRouter);
+//
+//Endpoint para INSERTAR personas
+router.post("/Insertar_Persona", (req, res) => {
+    const { tabla, valores } = req.body;
+    const sql = "CALL INSERT_PERSONAS (?, ?)"; 
 
-// Configura el servidor para escuchar en el puerto 3000
-app.listen(3000, () => console.log('Servidor corriendo en el puerto 3000'));
+    console.log("Datos recibidos:", req.body);
 
-module.exports = { mysqlConnection }; // Exporta la conexión para su uso en otros archivos
+    // Realizar la consulta a la base de datos
+    mysqlConnection.query(sql, [tabla, valores], (err, rows) => {
+        if (err) {
+            console.error("Error al insertar los datos:", err);
+            res.status(500).send("Error al insertar datos");
+        } else {
+            console.log("Respuesta de la base de datos:", rows);
+            res.send("Datos ingresados correctamente");
+        }
+    });
+});
+
+
+//SE EXPORTA EL ROUTER PARA QUE SE PUEDA USAR EN EL INDEX.JS
+module.exports = router;

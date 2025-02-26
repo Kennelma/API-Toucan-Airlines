@@ -1,37 +1,37 @@
+// constante para el paquete de MYSQL
 const mysql = require('mysql');
+// constante para el paquete Express
 const express = require('express');
+//cnstante para los metodos de express.
+var  app = express();
+//constante para el paquete de bodyparser.
 const bp = require('body-parser');
 
-// Crear el servidor de express
-const app = express();
-
-// Configurar el middleware para parsear JSON
+//Enviando los datos JSON a NODEJS API
 app.use(bp.json());
 
-// Configuración de la conexión a MySQL
-const mysqlConnection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
+// conectar a la base de datos (MYSQL)
+var mysqlConnection = mysql.createConnection({
+    host: '142.44.161.115',
+    user: '1700PAC12025Equi3',
+    port: 3306,
     password: '1700PAC12025Equi3#49',
     database: '1700PAC12025Equi3',
     multipleStatements: true
 });
 
-// Conectar a la base de datos
-mysqlConnection.connect((err) => {
-    if (err) {
-        console.log('Error al conectar a la base de datos:', err);
-        process.exit(1); // Detiene el servidor si no se conecta a la base de datos
-    } else {
-        console.log('Conexión exitosa a la base de datos');
+// Test de conexion abase de datos
+mysqlConnection.connect((err)=>{
+    if (!err){
+        console.log('Conexion Exitosa');
+    } else { 
+        console.log('Error al conectar la base de datos', err.message);
     }
 });
 
-// Importa el router para las rutas relacionadas con personas
-const personaRouter = require('./modulo_personas');
-app.use('/', personaRouter);
+//IMPORTACION DE LAS RUTAS DEL MODULO PERSONAS
+const personasRoutes = require('./modulo_personas');
+app.use('/ModuloPersonas', personasRoutes); //usa esto como base de rutas
 
-// Configura el servidor para escuchar en el puerto 3000
-app.listen(3000, () => console.log('Servidor corriendo en el puerto 3000'));
-
-module.exports = { mysqlConnection }; // Exporta la conexión para su uso en otros archivos
+// Ejecutar el server en un puerto especifico.
+app.listen(3000,()=> console.log('server Running puerto: 3000'));
