@@ -11,15 +11,12 @@ const bp = require('body-parser');
 app.use(bp.json());
 
 // conectar a la base de datos (MYSQL)
-const mysqlConnection = mysql.createConnection({
-
+var mysqlConnection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '1700PAC12025Equi3#49',
     database: '1700PAC12025Equi3',
     multipleStatements: true
-
-
 });
 
 // Test de conexion abase de datos
@@ -29,8 +26,6 @@ mysqlConnection.connect((err)=>{
     } else { 
         console.log('Error al conectar a la Db');
     }
-
-
 });
 
 // Ejecutar el server en un puerto especifico.
