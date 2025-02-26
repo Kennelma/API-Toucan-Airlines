@@ -22,7 +22,6 @@ mysqlConnection.connect((err)=>{
     }
 });
 
-
 /********************************************/
 //Endpoint para INSERTAR personas
 router.post("/Insertar_Persona", (req, res) => {
