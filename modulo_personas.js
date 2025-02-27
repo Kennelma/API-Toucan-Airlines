@@ -2,7 +2,6 @@ const mysql = require('mysql');
 const express = require('express');
 const router = express.Router();
 
-
 // conectar a la base de datos (MYSQL)
 var mysqlConnection = mysql.createConnection({
     host: '142.44.161.115',
@@ -22,7 +21,7 @@ mysqlConnection.connect((err)=>{
     }
 });
 
-//
+
 //Endpoint para INSERTAR personas
 router.post("/Insertar_Persona", (req, res) => {
     const { tabla, valores } = req.body;
@@ -43,5 +42,23 @@ router.post("/Insertar_Persona", (req, res) => {
 });
 
 
+//Endpoint para SELECCIONAR personas
+router.get("/Informacion_Personas", (req,res) =>{
+    const { tabla, valor } = req.query;
+    const sql = "CALL SELECT_PERSONAS (?, ?)"; 
+
+    mysqlConnection.query(sql, [tabla, valor], (err, rows) => {
+        if (err) {
+            return res.status(500).send("Error en la consulta.");
+        }
+        res.status(200).json(rows);
+    });
+});
+
+
+
+
+
 //SE EXPORTA EL ROUTER PARA QUE SE PUEDA USAR EN EL INDEX.JS
 module.exports = router;
+
