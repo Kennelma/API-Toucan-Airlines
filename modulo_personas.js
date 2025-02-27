@@ -61,3 +61,4 @@ router.get("/Informacion_Personas", (req,res) =>{
 
 //SE EXPORTA EL ROUTER PARA QUE SE PUEDA USAR EN EL INDEX.JS
 module.exports = router;
+
