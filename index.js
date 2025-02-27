@@ -2,15 +2,14 @@
 const mysql = require('mysql');
 // constante para el paquete Express
 const express = require('express');
-//cnstante para los metodos de express.
+//constante para los metodos de express.
 var  app = express();
 //constante para el paquete de bodyparser.
 const bp = require('body-parser');
-
 //Enviando los datos JSON a NODEJS API
 app.use(bp.json());
 
-// conectar a la base de datos (MYSQL)
+//Conectar a la base de datos (MYSQL)
 var mysqlConnection = mysql.createConnection({
     host: '142.44.161.115',
     user: '1700PAC12025Equi3',
