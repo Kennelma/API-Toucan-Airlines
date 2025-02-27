@@ -2,52 +2,47 @@ const mysql = require('mysql');
 const express = require('express');
 const router = express.Router();
 
-// Conexión a la base de datos
-const mysqlConnection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: '1700PAC12025Equi3',
+// conectar a la base de datos (MYSQL)
+var mysqlConnection = mysql.createConnection({
+    host: '142.44.161.115',
+    user: '1700PAC12025Equi3',
     port: 3306,
+    password: '1700PAC12025Equi3#49',
+    database: '1700PAC12025Equi3',
     multipleStatements: true
 });
 
-
-mysqlConnection.connect((err) => {
-    if (!err) {
-        console.log('Conexión exitosa');
-    } else {
-        console.log('Error al conectar a la base de datos:', err);
+// Test de conexion abase de datos
+mysqlConnection.connect((err)=>{
+    if (!err){
+        console.log('Conexion Exitosa');
+    } else { 
+        console.log('Error al conectar la base de datos', err.message);
     }
 });
 
-// Endpoint para insertar notificacion
+// Endpoint para insertar notificación
 router.post("/CrearNotificacion", (req, res) => {
-    const notificacion = req.body;
+
+    const { tipo_notificacion, tipo_alerta, cod_reserva, prioridad, mensaje } = req.body;
+    
     const sql = "CALL INSERT_NOTIFICACIONES(?, ?, ?, ?, ?)";
 
-    console.log("Datos recibidos:", notificacion);  // Depuración
+    console.log("Datos recibidos:", req.body);
 
-    mysqlConnection.query(
-        sql,
-        [
-            notificacion.tipo_notificacion,
-            notificacion.tipo_alerta,
-            notificacion.cod_reserva,
-            notificacion.prioridad,
-            notificacion.mensaje
-        ],
-        (err, rows, fields) => {
+    mysqlConnection.query(sql, [tipo_notificacion, tipo_alerta, cod_reserva, prioridad, mensaje], (err, rows) => {
+            
             if (!err) {
                 console.log("Respuesta de la base de datos:", rows);  // Depuración
-                res.send("Notificacion ingresada correctamente!");
+                res.send("Notificación ingresada correctamente!");
             } else {
-                console.log("Error al insertar notificacion:", err);
-                res.status(500).send("Error al insertar notificacion.");
+                console.error("Error al insertar notificación:", err);
+                res.status(500).send("Error al insertar notificación.");
             }
         }
     );
 });
+
 
 
 
