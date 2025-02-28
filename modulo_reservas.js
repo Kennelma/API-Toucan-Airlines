@@ -24,7 +24,6 @@ mysqlConnection.connect((err)=>{
 
 //Endpoint para INSERTAR personas
 router.post("/Realizar_Reserva", (req, res) => {
-    const { tabla, valores } = req.body;
     const sql = "CALL INSERT_RESERVAS (?, ?)"; 
 
     console.log("Datos recibidos:", req.body);
@@ -45,7 +44,7 @@ router.post("/Realizar_Reserva", (req, res) => {
 //Endpoint para SELECCIONAR personas
 router.get("/Informacion_Reservas", (req,res) =>{
     const { tabla } = req.query;
-    const sql = "CALL SELECT_RESERVAS (?, ?)"; 
+    const sql = "CALL SELECT_RESERVAS (?)"; 
 
     mysqlConnection.query(sql, [tabla], (err, rows) => {
         if (err) {
@@ -54,9 +53,6 @@ router.get("/Informacion_Reservas", (req,res) =>{
         res.status(200).json(rows);
     });
 });
-
-
-
 
 
 //SE EXPORTA EL ROUTER PARA QUE SE PUEDA USAR EN EL INDEX.JS
