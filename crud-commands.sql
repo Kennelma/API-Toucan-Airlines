@@ -1,8 +1,8 @@
 
 //CRUD POST - MODULO_PERSONAS
 
-Post: http://localhost:3000/ModuloPersonas/Insertar_Persona
 
+Post: http://localhost:3000/ModuloPersonas/Insertar_Persona
 
 {"tabla": "PERSONAS", "valores": "('nombre', 'apellido', 'edad', 'dni', 'estado_civil', 'nacionalidad')"}
 
@@ -17,6 +17,10 @@ Post: http://localhost:3000/ModuloPersonas/Insertar_Persona
 {"tabla": "CORREOS", "valores": "('direccion_correo', 'cod_persona', 'tipo_correo')"}
 
 {"tabla": "DIRECCIONES", "valores": "('ciudad', 'pais', 'cod_postal', 'colonia', 'cod_persona')"}
+
+
+
+
 
 
 {"tabla": "RESERVAS", "valores": "('fecha_ida', 'fecha_regreso', 'clase_vuelo', 'disponibilidad', 'estadia', 'cod_pasajero')"}
