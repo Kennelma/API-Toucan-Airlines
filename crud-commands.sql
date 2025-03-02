@@ -19,3 +19,6 @@ Post: http://localhost:3000/ModuloPersonas/Insertar_Persona
 {"tabla": "DIRECCIONES", "valores": "('ciudad', 'pais', 'cod_postal', 'colonia', 'cod_persona')"}
 
 
+
+
+

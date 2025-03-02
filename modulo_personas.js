@@ -7,7 +7,7 @@ router.post("/Insertar_Persona", (req, res) => {
     const { tabla, valores } = req.body;
     const sql = "CALL INSERT_PERSONAS (?, ?)"; 
 
-    console.log("Datos recibidos:", req.body);
+    console.log(" 📥 Datos recibidos:", req.body);
 
     // Realizar la consulta a la base de datos
     mysqlConnection.query(sql, [tabla, valores], (err, rows) => {
@@ -16,7 +16,7 @@ router.post("/Insertar_Persona", (req, res) => {
             res.status(500).send("Error al insertar datos");
         } else {
             console.log("Respuesta de la base de datos:", rows);
-            res.send("Datos ingresados correctamente");
+            res.send(" ✅ Datos ingresados correctamente");
         }
     });
 });
