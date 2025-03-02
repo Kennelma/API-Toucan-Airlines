@@ -11,28 +11,27 @@ const bp = require('body-parser');
 //Enviando los datos JSON a NODEJS API
 app.use(bp.json());
 
-// conectar a la base de datos (MYSQL)
-const mysqlConnection = mysql.createConnection({
-
-    host: 'localhost',
-    user: 'root',
-    password: '',
+//Conectar a la base de datos (MYSQL)
+var mysqlConnection = mysql.createConnection({
+    host: '142.44.161.115',
+    user: '1700PAC12025Equi3',
+    port: 3306,
+    password: '1700PAC12025Equi3#49',
     database: '1700PAC12025Equi3',
     multipleStatements: true
-
-
 });
-
+// holaaaaaaaa
+//cualquier cosa
 // Test de conexion abase de datos
 mysqlConnection.connect((err)=>{
-    if (err){
-        console.log('Conexion exitosa');
+    if (!err){
+        console.log('Conexion Exitosa');
     } else { 
-        console.log('Error al conectar la base.');
+        console.log('Error al conectar la base de datos', err.message);
     }
-
-
 });
+
+
 
 // Endpoint para insertar reportes
 router.post("/CrearReporte", (req, res) => {
