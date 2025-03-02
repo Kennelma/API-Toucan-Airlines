@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 const mysqlConnection = require('./conexion_BD');
 
-//Endpoint para INSERTAR personas
-router.post("/Insertar_Persona", (req, res) => {
+//Endpoint para INSERTAR Reservas
+router.post("/Realizar_Reserva", (req, res) => {
     const { tabla, valores } = req.body;
-    const sql = "CALL INSERT_PERSONAS (?, ?)"; 
+    const sql = "CALL INSERT_RESERVAS (?, ?)"; 
 
     console.log("Datos recibidos:", req.body);
 
@@ -18,20 +18,6 @@ router.post("/Insertar_Persona", (req, res) => {
             console.log("Respuesta de la base de datos:", rows);
             res.send("Datos ingresados correctamente");
         }
-    });
-});
-
-
-//Endpoint para SELECCIONAR personas
-router.get("/Informacion_Personas", (req,res) =>{
-    const { tabla, valor } = req.query;
-    const sql = "CALL SELECT_PERSONAS (?, ?)"; 
-
-    mysqlConnection.query(sql, [tabla, valor], (err, rows) => {
-        if (err) {
-            return res.status(500).send("Error en la consulta.");
-        }
-        res.status(200).json(rows);
     });
 });
 

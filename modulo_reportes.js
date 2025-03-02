@@ -1,56 +1,23 @@
-//Constante para el paquete de MYSQL
-const mysql = require('mysql');
-//Constante para el paquete Express
 const express = require('express');
-//Constante para los metodos de express.
-var app = express();
-//Constante para el paquete de bodyparser.
-const bp = require('body-parser');
-
-
-//Enviando los datos JSON a NODEJS API
-app.use(bp.json());
-
-//Conectar a la base de datos (MYSQL)
-var mysqlConnection = mysql.createConnection({
-    host: '142.44.161.115',
-    user: '1700PAC12025Equi3',
-    port: 3306,
-    password: '1700PAC12025Equi3#49',
-    database: '1700PAC12025Equi3',
-    multipleStatements: true
-});
-// holaaaaaaaa
-//cualquier cosa
-// Test de conexion abase de datos
-mysqlConnection.connect((err)=>{
-    if (!err){
-        console.log('Conexion Exitosa');
-    } else { 
-        console.log('Error al conectar la base de datos', err.message);
-    }
-});
-
-
+const router = express.Router();
+const mysqlConnection = require('./conexion_BD');
 
 // Endpoint para insertar reportes
 router.post("/CrearReporte", (req, res) => {
     const reporte = req.body;
-    const sql = "CALL INSERT_REPORTES(?, ?, ?, ?, ?, ?, ?, ?)";
+    const sql = "CALL INSERT_REPORTES( ?, ?, ?, ?, ?, ?)";
     
     console.log("Datos recibidos:", reporte); // Depuración
 
     mysqlConnection.query(
         sql,
         [
-            reporte.COD_EMPLEADO,
             reporte.TIPO_REPORTE,
             reporte.FORMATO,
             reporte.COD_FACTURA,
             reporte.COD_BOLETO,
             reporte.EMAIL_ENVIO,
-            reporte.FECHA_ENVIO,
-            reporte.HORA_ENVIO
+            reporte.COD_EMPLEADO,
         ],
         (err, rows) => {
             if (!err) {
@@ -66,9 +33,10 @@ router.post("/CrearReporte", (req, res) => {
 
 // Endpoint para seleccionar reportes
 router.get("/GetReportes", (req, res) => {
-    const sql = "CALL SELECT_REPORTES()";
+    const { valor } = req.query;
+    const sql = "CALL SELECT_REPORTES(?)";
     
-    mysqlConnection.query(sql, (err, rows) => {
+    mysqlConnection.query(sql, [valor], (err, rows) => {
         if (!err) {
             res.status(200).json(rows[0]); // Devuelve los reportes
         } else {
@@ -82,13 +50,12 @@ router.get("/GetReportes", (req, res) => {
 router.put("/ActualizarReporte/:id", (req, res) => {
     const reporte = req.body;
     const reporteId = req.params.id;
-    const sql = "CALL UPDATE_REPORTES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    const sql = "CALL UPDATE_REPORTES( ?, ?, ?, ?, ?, ?)";
     
     mysqlConnection.query(
         sql,
         [
             COD_REPORTE,
-            reporte.COD_EMPLEADO,
             reporte.TIPO_REPORTE,
             reporte.FORMATO,
             reporte.COD_FACTURA,
