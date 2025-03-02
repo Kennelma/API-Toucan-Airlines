@@ -2,26 +2,8 @@ const express = require('express');
 const router = express.Router();
 const mysqlConnection = require('./conexion_BD');
 
-/*
+
 //Endpoint para INSERTAR Reservas
-router.post("/Realizar_Reserva", (req, res) => {
-    const sql = "CALL INSERT_RESERVAS (?, ?)"; 
-
-    console.log("Datos recibidos:", req.body);
-
-    // Realizar la consulta a la base de datos
-    mysqlConnection.query(sql, [tabla, valores], (err, rows) => {
-        if (err) {
-            console.error("Error al insertar los datos:", err);
-            res.status(500).send("Error al insertar datos");
-        } else {
-            console.log("Respuesta de la base de datos:", rows);
-            res.send("Datos ingresados correctamente");
-        }
-    });
-});*/
-
-
 router.post("/Realizar_Reserva", (req, res) => {
     console.log("Datos recibidos:", req.body); // ✅ Para verificar qué llega en req.body
     const { tabla, valores } = req.body; // ✅ Extraer correctamente
@@ -85,6 +67,36 @@ router.delete("/Eliminar_Reserva", (req, res) => {
 
 
 
+// Endpoint para ACTUALIZAR reservas
+
+// Endpoint para ACTUALIZAR reservas
+router.put("/Actualizar_Reserva", (req, res) => {
+
+    console.log("Consulta PUT recibida:", req.query);
+
+    const { tabla, camposUpdate, PI_PK_COD } = req.query;
+    
+    if (!tabla || !camposUpdate || !PI_PK_COD) {
+        return res.status(400).send("Faltan parámetros: 'tabla', 'camposUpdate' y 'PI_PK_COD'.");
+    }
+
+    // Construir la consulta dinámica con los parámetros proporcionados
+    const sql = `UPDATE ${tabla} SET ${camposUpdate} WHERE COD_RESERVA = ?`;
+
+    mysqlConnection.query(sql, [PI_PK_COD], (err, result) => {
+        if (err) {
+            console.error("Error en la consulta SQL:", err);
+            return res.status(500).send("Error en la consulta.");
+        }
+
+        // Verificar si se actualizó alguna fila
+        if (result.affectedRows === 0) {
+            return res.status(404).send("No se encontró la reserva con el código proporcionado.");
+        }
+
+        res.status(200).json({ mensaje: "Reserva actualizada correctamente", datos: result });
+    });
+});
 
 
 //SE EXPORTA EL ROUTER PARA QUE SE PUEDA USAR EN EL INDEX.JS

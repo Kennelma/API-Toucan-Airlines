@@ -19,6 +19,9 @@ Post: http://localhost:3000/ModuloPersonas/Insertar_Persona
 {"tabla": "DIRECCIONES", "valores": "('ciudad', 'pais', 'cod_postal', 'colonia', 'cod_persona')"}
 
 
+
+http://localhost:3000/ModuloReservas/Actualizar_Reserva?tabla=RESERVAS&camposUpdate=DISPONIBILIDAD='DISPONIBLE'&PI_PK_COD=19
+
 {"tabla": "RESERVAS", "valores": "('fecha_ida', 'fecha_regreso', 'clase_vuelo', 'disponibilidad', 'estadia', 'cod_pasajero')"}
 
 {"tabla": "BOLETOS", "valores": "('cod_asiento', 'fecha_vuelo', 'hora', 'destino', 'precio', 'cod_vuelo', 'cod_reserva')"}
