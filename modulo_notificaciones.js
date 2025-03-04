@@ -42,6 +42,52 @@ router.delete("/BorrarNotificacion/:id", (req, res) => {
     });
 });
 
+// Endpoint para seleccionar notificaciones GET
+router.get("/GetNotificaciones", (req, res) => {
+    const { valor } = req.query;
+    const sql = "CALL SELECT_NOTIFICACIONES(?)";
+    
+    mysqlConnection.query(sql, [valor], (err, rows) => {
+        if (!err) {
+            res.status(200).json(rows[0]); // Devuelve notificaciones
+        } else {
+            console.error("Error al seleccionar notificaciones:", err);
+            res.status(500).send("Error al seleccionar notificaciones.");
+        }
+    });
+});
+
+// Endpoint para actualizar notificaciones UPDATE
+router.put("/ActualizarNotificacion/:id", (req, res) => {
+    const notificacion = req.body; 
+    const notificacionId = req.params.id;
+    const sql = "CALL UPDATE_NOTIFICACIONES(?, ?, ?, ?, ?, ?)";
+
+
+    // Realiza la llamada al procedimiento almacenado
+
+    mysqlConnection.query(
+        sql, 
+        [
+            notificacionId,
+            notificacion.cod_notificacion, 
+            notificacion.tipo_notificacion, 
+            notificacion.tipo_alerta, 
+            notificacion.prioridad, 
+            notificacion.mensaje, 
+            notificacion.cod_reserva
+
+        ], (err, rows) => {
+        if (!err) {
+                res.status(200).send("Notificacion actualizado correctamente!");
+            } else {
+                console.error("Error al actualizar Notificacion:", err);
+                res.status(500).send("Error al actualizar Notificacion.");
+            }
+    });
+});
+
+
 
 // Exportamos el router
 module.exports = router;

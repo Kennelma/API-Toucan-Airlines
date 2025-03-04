@@ -5,7 +5,6 @@
 Post: http://localhost:3000/ModuloPersonas/Insertar_Persona
 
 
-
 {"tabla": "RESERVAS", "valores": "('fecha_ida', 'fecha_regreso', 'clase_vuelo', 'disponibilidad', 'estadia', 'cod_pasajero')"}
 
 {"tabla": "BOLETOS", "valores": "('cod_asiento', 'fecha_vuelo', 'hora', 'destino', 'precio', 'cod_vuelo', 'cod_reserva')"}
@@ -13,8 +12,6 @@ Post: http://localhost:3000/ModuloPersonas/Insertar_Persona
 {"tabla": "VENTAS", "valores": "('cod_reserva', 'ventas_dia', 'cod_boleto', 'fecha_venta', 'estado_venta')"}
 
 
-<<<<<<< HEAD
-=======
 
 //CRUD MODULO REPORTES
 
@@ -43,4 +40,3 @@ Put: http://localhost:3000/ModuloReportes/ActualizarReporte/0
 }
 
 Delete: http://localhost:3000/ModuloReportes/BorrarReporte/cod_reporte
->>>>>>> e90bc6b5356654b7530261e7307346c897c50ac2
