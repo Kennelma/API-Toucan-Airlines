@@ -32,5 +32,13 @@ mysqlConnection.connect((err)=>{
 const personasRoutes = require('./modulo_personas');
 app.use('/ModuloPersonas', personasRoutes); //usa esto como base de rutas
 
+
+// Importación del módulo de facturas
+const facturasRoutes = require('./modulo_facturas');
+// Uso de las rutas en la aplicación
+app.use('/ModuloFacturas', facturasRoutes);
+
+
+
 // Ejecutar el server en un puerto especifico.
 app.listen(3000,()=> console.log('server Running puerto: 3000'));
