@@ -13,3 +13,34 @@ Post: http://localhost:3000/ModuloPersonas/Insertar_Persona
 {"tabla": "VENTAS", "valores": "('cod_reserva', 'ventas_dia', 'cod_boleto', 'fecha_venta', 'estado_venta')"}
 
 
+<<<<<<< HEAD
+=======
+
+//CRUD MODULO REPORTES
+
+Post: http://localhost:3000/ModuloReportes/CrearReporte
+{
+    "TIPO_REPORTE": "",
+    "FORMATO": "",
+    "COD_FACTURA": "",
+    "COD_BOLETO": "",
+    "EMAIL_ENVIO": "",
+    "COD_EMPLEADO": ""
+}
+
+
+Get: http://localhost:3000/ModuloReportes/GetReportes?valor=0
+
+Put: http://localhost:3000/ModuloReportes/ActualizarReporte/0
+
+{
+  "COD_EMPLEADO": "",
+  "TIPO_REPORTE": "",
+  "FORMATO": "",
+  "COD_FACTURA": "",
+  "COD_BOLETO": "",
+  "EMAIL_ENVIO": ""
+}
+
+Delete: http://localhost:3000/ModuloReportes/BorrarReporte/cod_reporte
+>>>>>>> e90bc6b5356654b7530261e7307346c897c50ac2
