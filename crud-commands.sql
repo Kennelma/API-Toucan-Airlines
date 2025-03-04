@@ -29,9 +29,21 @@ Post: http://localhost:3000/ModuloReportes/CrearReporte
     "COD_FACTURA": "",
     "COD_BOLETO": "",
     "EMAIL_ENVIO": "",
-    "COD_EMPLEADO": ""
+    "COD_EMPLEADO": ""
 }
+
 
 Get: http://localhost:3000/ModuloReportes/GetReportes?valor=0
 
-Delete: http://localhost:3000/ModuloReportes//BorrarReporte/cod_reporte
+Put: http://localhost:3000/ModuloReportes/ActualizarReporte/0
+
+{
+  "COD_EMPLEADO": "",
+  "TIPO_REPORTE": "",
+  "FORMATO": "",
+  "COD_FACTURA": "",
+  "COD_BOLETO": "",
+  "EMAIL_ENVIO": ""
+}
+
+Delete: http://localhost:3000/ModuloReportes/BorrarReporte/cod_reporte

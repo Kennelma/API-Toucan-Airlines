@@ -50,19 +50,19 @@ router.get("/GetReportes", (req, res) => {
 router.put("/ActualizarReporte/:id", (req, res) => {
     const reporte = req.body;
     const reporteId = req.params.id;
-    const sql = "CALL UPDATE_REPORTES( ?, ?, ?, ?, ?, ?)";
-    
+    const sql = "CALL UPDATE_REPORTES( ?, ?, ?, ?, ?, ?, ?)"; // Asegúrate de que los parámetros coincidan
+
     mysqlConnection.query(
         sql,
         [
-            COD_REPORTE,
+            reporteId,
+            reporte.COD_EMPLEADO,
             reporte.TIPO_REPORTE,
             reporte.FORMATO,
             reporte.COD_FACTURA,
             reporte.COD_BOLETO,
             reporte.EMAIL_ENVIO,
-            reporte.FECHA_ENVIO,
-            reporte.HORA_ENVIO
+            
         ],
         (err, rows) => {
             if (!err) {
@@ -74,6 +74,7 @@ router.put("/ActualizarReporte/:id", (req, res) => {
         }
     );
 });
+
 
 // Endpoint para eliminar un reporte
 router.delete("/BorrarReporte/:id", (req, res) => {
