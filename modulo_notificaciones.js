@@ -25,8 +25,6 @@ router.post("/CrearNotificacion", (req, res) => {
     );
 });
 
-
-
 // Endpoint para eliminar un notificacion
 router.delete("/BorrarNotificacion/:id", (req, res) => {
     const cod_notificacion = req.params.id;
@@ -41,7 +39,6 @@ router.delete("/BorrarNotificacion/:id", (req, res) => {
         }
     });
 });
-
 
 // Exportamos el router
 module.exports = router;
