@@ -20,7 +20,10 @@ Post: http://localhost:3000/ModuloPersonas/Insertar_Persona
 
 
 
-http://localhost:3000/ModuloReservas/Actualizar_Reserva?tabla=RESERVAS&camposUpdate=DISPONIBILIDAD='DISPONIBLE'&PI_PK_COD=19
+
+//CRUD MODULO RESERVAS
+
+Post: http://localhost:3000/ModuloReservas/Realizar_Reserva
 
 {"tabla": "RESERVAS", "valores": "('fecha_ida', 'fecha_regreso', 'clase_vuelo', 'disponibilidad', 'estadia', 'cod_pasajero')"}
 
@@ -28,3 +31,9 @@ http://localhost:3000/ModuloReservas/Actualizar_Reserva?tabla=RESERVAS&camposUpd
 
 {"tabla": "VENTAS", "valores": "('cod_reserva', 'ventas_dia', 'cod_boleto', 'fecha_venta', 'estado_venta')"}
 
+
+Get: http://localhost:3000/ModuloReservas/Informacion_Reserva?valor=0
+
+Put: http://localhost:3000/ModuloReservas/Actualizar_Reserva?tabla=RESERVAS&camposUpdate=DISPONIBILIDAD='DISPONIBLE'&PI_PK_COD=19
+
+Delete: http://localhost:3000/ModuloReservas/Eliminar_Reserva?tabla=RESERVAS&valores=20
