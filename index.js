@@ -16,9 +16,11 @@ app.use(bp.json());
 const personasRoutes = require('./modulo_personas');
 app.use('/ModuloPersonas', personasRoutes); //usa esto como base de rutas
 
-//IMPORTACION DE LAS RUTAS DE LOS MODULOS
-const moduloFacturas = require('.generar/_facturas');
-app.use('/ModuloFactura', facturaRoutes);
+////IMPORTACION DE LAS RUTAS DE LOS MODULOS
+const notificacionesRoutes = require('./modulo_notificaciones');
+app.use('/ModuloNotificaciones', notificacionesRoutes); //usa esto como base de rutas
+
+
 const reservasRoutes = require('./modulo_reservas');
 app.use('/ModuloReservas', reservasRoutes); //usa esto como base de rutas
 
