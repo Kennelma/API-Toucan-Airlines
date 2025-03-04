@@ -4,23 +4,6 @@
 
 Post: http://localhost:3000/ModuloPersonas/Insertar_Persona
 
-{"tabla": "PERSONAS", "valores": "('nombre', 'apellido', 'edad', 'dni', 'estado_civil', 'nacionalidad')"}
-
-{"tabla": "EMPLEADOS", "valores": "('cod_persona', 'salario', 'fecha_contratacion', 'cargo')"}
-
-{"tabla": "USUARIOS", "valores": "('correo', 'contrasena', 'tipo_usuario', 'cod_persona')"}
-
-{"tabla": "TELEFONOS", "valores": "('numero_telefono', 'tipo_telefono', 'cod_persona', 'cod_pais')"}
-
-{"tabla": "PASAJEROS", "valores": "('cod_persona', 'cant_maletas', 'millas', 'puntos', 'cod_pasaporte')"}
-
-{"tabla": "CORREOS", "valores": "('direccion_correo', 'cod_persona', 'tipo_correo')"}
-
-{"tabla": "DIRECCIONES", "valores": "('ciudad', 'pais', 'cod_postal', 'colonia', 'cod_persona')"}
-
-
-
-
 
 
 {"tabla": "RESERVAS", "valores": "('fecha_ida', 'fecha_regreso', 'clase_vuelo', 'disponibilidad', 'estadia', 'cod_pasajero')"}
@@ -30,6 +13,8 @@ Post: http://localhost:3000/ModuloPersonas/Insertar_Persona
 {"tabla": "VENTAS", "valores": "('cod_reserva', 'ventas_dia', 'cod_boleto', 'fecha_venta', 'estado_venta')"}
 
 
+<<<<<<< HEAD
+=======
 
 //CRUD MODULO REPORTES
 
@@ -58,3 +43,4 @@ Put: http://localhost:3000/ModuloReportes/ActualizarReporte/0
 }
 
 Delete: http://localhost:3000/ModuloReportes/BorrarReporte/cod_reporte
+>>>>>>> e90bc6b5356654b7530261e7307346c897c50ac2
