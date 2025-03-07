@@ -20,7 +20,5 @@ mysqlConnection.connect((err)=>{
     }
 });
 
-
-
 //Se exporta la conexión a los demás archivos
 module.exports = mysqlConnection;
