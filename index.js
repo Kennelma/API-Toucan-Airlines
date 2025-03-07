@@ -16,12 +16,15 @@ app.use(bp.json());
 const personasRoutes = require('./modulo_personas');
 app.use('/ModuloPersonas', personasRoutes); //usa esto como base de rutas
 
+const notificacionesRoutes = require('./modulo_notificaciones');
+app.use('/ModuloNotificaciones', notificacionesRoutes); //usa esto como base de rutas
+
 const reservasRoutes = require('./modulo_reservas');
 app.use('/ModuloReservas', reservasRoutes); //usa esto como base de rutas
 
 const reportesRoutes = require('./modulo_reportes');
 app.use('/ModuloReportes', reportesRoutes); //usa esto como base de rutas
 
-// Ejecutar el server en un puerto especifico.
+//Ejecuta el server en un puerto especifico.
 app.listen(3000,()=> console.log('server Running puerto: 3000'));
 
