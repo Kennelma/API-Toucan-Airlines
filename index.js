@@ -6,7 +6,7 @@ var  app = express();
 const bp = require('body-parser');
 
 //Se importa la conexion desde conexion_BD.js
-const mysqlConnection = require('./conexion_BD');
+const mysqlConnection = require('./conexion_BD'); //se importa la conexion de la base de datos
 
 //Enviando los datos JSON a NODEJS API
 app.use(bp.json());
@@ -24,3 +24,4 @@ app.use('/ModuloReportes', reportesRoutes); //usa esto como base de rutas
 
 // Ejecutar el server en un puerto especifico.
 app.listen(3000,()=> console.log('server Running puerto: 3000'));
+
