@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mysqlConnection = require('./conexion_BD');
 
-
+//ENDPOINT PARA INSERTAR RESERVAS
 router.post("/Realizar_Reserva", (req, res) => {
     console.log("Datos recibidos:", req.body); 
     const { tabla, valores } = req.body; 
@@ -20,7 +20,6 @@ router.post("/Realizar_Reserva", (req, res) => {
         res.send("Datos ingresados correctamente.");
     });
 });
-
 
 
 //Endpoint para SELECCIONAR reservas
@@ -43,6 +42,7 @@ router.get("/Informacion_Reserva", (req, res) => {
     });
 });
 
+//ENDPOINT ACTUALIZAR RESERVAS
 router.put("/Actualizar_Reserva", (req, res) => {
     const { tabla, id, valores } = req.body;
     const camposUpdate = Object.keys(valores).map(key => `\`${key}\` = '${valores[key]}'`).join(', ');
@@ -56,7 +56,6 @@ router.put("/Actualizar_Reserva", (req, res) => {
         }    
     });
 });
-
 
 // Endpoint para ELIMINAR reservas
 router.delete("/Eliminar_Reserva", (req, res) => {
@@ -76,10 +75,6 @@ router.delete("/Eliminar_Reserva", (req, res) => {
         res.status(200).json({ mensaje: "Reserva eliminada correctamente", datos: rows });
     });
 });
-
-
-
-
 
 
 //SE EXPORTA EL ROUTER PARA QUE SE PUEDA USAR EN EL INDEX.JS
