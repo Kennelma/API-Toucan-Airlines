@@ -24,6 +24,6 @@ app.use('/ModuloReservas', reservasRoutes); //usa esto como base de rutas
 const reportesRoutes = require('./modulo_reportes');
 app.use('/ModuloReportes', reportesRoutes); //usa esto como base de rutas
 
-//Ejecuta el server en un puerto especifico.
+// Ejecutar el server en un puerto especifico.
 app.listen(3000,()=> console.log('server Running puerto: 3000'));
 
