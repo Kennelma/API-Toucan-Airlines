@@ -58,21 +58,19 @@ router.get("/GetNotificaciones", (req, res) => {
 });
 
 // Endpoint para actualizar notificaciones UPDATE
-router.put("/ActualizarNotificacion/:id", (req, res) => {
+router.put("/ActualizarNotificacion", (req, res) => {
     const notificacion = req.body; 
-    const notificacionId = req.params.id;
     const sql = "CALL UPDATE_NOTIFICACIONES(?, ?, ?, ?, ?, ?)";
 
     mysqlConnection.query(
         sql, 
         [
-            notificacionId,
             notificacion.cod_notificacion, 
+            notificacion.cod_reserva, 
             notificacion.tipo_notificacion, 
             notificacion.tipo_alerta, 
             notificacion.prioridad, 
-            notificacion.mensaje, 
-            notificacion.cod_reserva
+            notificacion.mensaje                            
 
         ], (err, rows) => {
         if (!err) {

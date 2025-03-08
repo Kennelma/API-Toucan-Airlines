@@ -22,6 +22,7 @@ router.post("/Realizar_Reserva", (req, res) => {
 });
 
 
+
 //Endpoint para SELECCIONAR reservas
 router.get("/Informacion_Reserva", (req, res) => {
     console.log("Datos recibidos en la consulta:", req.query); 
@@ -42,6 +43,19 @@ router.get("/Informacion_Reserva", (req, res) => {
     });
 });
 
+router.put("/Actualizar_Reserva", (req, res) => {
+    const { tabla, id, valores } = req.body;
+    const camposUpdate = Object.keys(valores).map(key => `\`${key}\` = '${valores[key]}'`).join(', ');
+    const sql = "CALL UPDATE_RESERVAS (?, ?, ?)";
+    mysqlConnection.query(sql, [tabla, id, camposUpdate], (err, rows) => {
+        if (!err) {
+            res.status(200).send(` ✅ Registro con ID ${id} actualizada correctamente!`);
+        } else {
+            console.error("Error en la consulta SQL:", err);
+            return res.status(500).send("Error en la consulta.");
+        }    
+    });
+});
 
 
 // Endpoint para ELIMINAR reservas
