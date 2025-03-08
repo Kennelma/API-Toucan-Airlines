@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const mysqlConnection = require('./conexion_BD');
+const mysqlConnection = require('./conexion_BD'); //se importa la conexion de la base de datos
 
 //Endpoint para INSERTAR personas
 router.post("/Insertar_Persona", (req, res) => {

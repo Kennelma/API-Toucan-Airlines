@@ -15,7 +15,7 @@ router.post("/CrearNotificacion", (req, res) => {
     mysqlConnection.query(sql, [tipo_notificacion, tipo_alerta, cod_reserva, prioridad, mensaje], (err, rows) => {
             
             if (!err) {
-                console.log("Respuesta de la base de datos:", rows);  // Depuración
+                console.log("Respuesta de la base de datos:", rows); 
                 res.send("Notificación ingresada correctamente!");
             } else {
                 console.error("Error al insertar notificación:", err);
@@ -42,14 +42,14 @@ router.delete("/BorrarNotificacion/:id", (req, res) => {
     });
 });
 
-// Endpoint para seleccionar notificaciones GET
+//Endpoint para seleccionar notificaciones GET
 router.get("/GetNotificaciones", (req, res) => {
     const { valor } = req.query;
     const sql = "CALL SELECT_NOTIFICACIONES(?)";
     
     mysqlConnection.query(sql, [valor], (err, rows) => {
         if (!err) {
-            res.status(200).json(rows[0]); // Devuelve notificaciones
+            res.status(200).json(rows[0]); //Devuelve notificaciones
         } else {
             console.error("Error al seleccionar notificaciones:", err);
             res.status(500).send("Error al seleccionar notificaciones.");
@@ -61,9 +61,6 @@ router.get("/GetNotificaciones", (req, res) => {
 router.put("/ActualizarNotificacion", (req, res) => {
     const notificacion = req.body; 
     const sql = "CALL UPDATE_NOTIFICACIONES(?, ?, ?, ?, ?, ?)";
-
-
-    // Realiza la llamada al procedimiento almacenado
 
     mysqlConnection.query(
         sql, 
@@ -85,7 +82,4 @@ router.put("/ActualizarNotificacion", (req, res) => {
     });
 });
 
-
-
-// Exportamos el router
 module.exports = router;
