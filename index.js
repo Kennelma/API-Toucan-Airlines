@@ -11,7 +11,6 @@ const mysqlConnection = require('./conexion_BD'); //se importa la conexion de la
 //Enviando los datos JSON a NODEJS API
 app.use(bp.json());
 
-
 //IMPORTACION DE LAS RUTAS DE LOS MODULOS
 const personasRoutes = require('./modulo_personas');
 app.use('/ModuloPersonas', personasRoutes); //usa esto como base de rutas
