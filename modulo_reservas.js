@@ -68,33 +68,19 @@ router.delete("/Eliminar_Reserva", (req, res) => {
 
 
 // Endpoint para ACTUALIZAR reservas
-
-// Endpoint para ACTUALIZAR reservas
 router.put("/Actualizar_Reserva", (req, res) => {
 
-    console.log("Consulta PUT recibida:", req.query);
+    const { tabla, id, valores } = req.body;
+    const camposUpdate = Object.keys(valores).map(key => \${key}\` = '${valores[key]}'`).join(', ');
 
-    const { tabla, camposUpdate, PI_PK_COD } = req.query;
-    
-    if (!tabla || !camposUpdate || !PI_PK_COD) {
-        return res.status(400).send("Faltan parámetros: 'tabla', 'camposUpdate' y 'PI_PK_COD'.");
-    }
-
-    // Construir la consulta dinámica con los parámetros proporcionados
-    const sql = `UPDATE ${tabla} SET ${camposUpdate} WHERE COD_RESERVA = ?`;
-
-    mysqlConnection.query(sql, [PI_PK_COD], (err, result) => {
-        if (err) {
+    const sql = "CALL UPDATE_RESERVAS (?, ?, ?)";
+    mysqlConnection.query(sql, [tabla, id, camposUpdate], (err, rows) => {
+        if (!err) {
+            res.status(200).send(` ✅ Registro con ID ${id} actualizada correctamente!`);
+        } else {
             console.error("Error en la consulta SQL:", err);
             return res.status(500).send("Error en la consulta.");
-        }
-
-        // Verificar si se actualizó alguna fila
-        if (result.affectedRows === 0) {
-            return res.status(404).send("No se encontró la reserva con el código proporcionado.");
-        }
-
-        res.status(200).json({ mensaje: "Reserva actualizada correctamente", datos: result });
+        }    
     });
 });
 
