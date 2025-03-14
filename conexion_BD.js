@@ -11,12 +11,12 @@ var mysqlConnection = mysql.createConnection({
     multipleStatements: true
 });
 
-// Test de conexion abase de datos
+//Mensaje confirmacion al conectar inicialmente
 mysqlConnection.connect((err)=>{
     if (!err){
-        console.log('Conexion Exitosa');
+        console.log('✅ Conexion Exitosa');
     } else { 
-        console.log('Error al conectar la base de datos', err.message);
+        console.log('❌ Error al conectar la base de datos', err.message);
     }
 });
 
