@@ -24,12 +24,8 @@ router.post("/Realizar_Reserva", (req, res) => {
 
 //Endpoint para SELECCIONAR reservas
 router.get("/Informacion_Reserva", (req, res) => {
-    console.log("Datos recibidos en la consulta:", req.query); 
 
-    const { tabla } = req.query;  
-    if (!tabla) {
-        return res.status(400).send("Falta el parámetro 'tabla'.");
-    }
+    const { tabla } = req.body;  
 
     const sql = "CALL SELECT_RESERVAS(?)";
 
@@ -59,9 +55,8 @@ router.put("/Actualizar_Reserva", (req, res) => {
 
 // Endpoint para ELIMINAR reservas
 router.delete("/Eliminar_Reserva", (req, res) => {
-    console.log("Consulta DELETE recibida:", req.query);
 
-    const { tabla, valores } = req.query;
+    const { tabla, valores } = req.body;
     if (!tabla || !valores) {
         return res.status(400).send("Faltan parámetros: 'tabla' y 'valores'.");
     }
