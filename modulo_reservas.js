@@ -25,14 +25,14 @@ router.post("/Realizar_Reserva", (req, res) => {
 router.get("/Informacion_Reserva", (req, res) => {
     console.log("Datos recibidos en la consulta:", req.query); 
 
-    const { tabla } = req.query;  
+    const { tabla, valor } = req.query;  
     if (!tabla) {
         return res.status(400).send("Falta el parámetro 'tabla'.");
     }
 
     const sql = "CALL SELECT_RESERVAS(?)";
 
-    mysqlConnection.query(sql, [tabla], (err, rows) => {
+    mysqlConnection.query(sql, [tabla, id], (err, rows) => {
         if (err) {
             console.error("Error en la consulta SQL:", err); 
             return res.status(500).send("Error en la consulta.");
@@ -41,6 +41,9 @@ router.get("/Informacion_Reserva", (req, res) => {
     });
 });
 
+
+
+/*
 router.put("/Actualizar_Reserva", (req, res) => {
     const { tabla, id, valores } = req.body;
     const camposUpdate = Object.keys(valores).map(key => `\`${key}\` = '${valores[key]}'`).join(', ');
@@ -53,7 +56,7 @@ router.put("/Actualizar_Reserva", (req, res) => {
             return res.status(500).send("Error en la consulta.");
         }    
     });
-});
+});*/
 
 
 // Endpoint para ELIMINAR reservas
