@@ -11,7 +11,6 @@ const mysqlConnection = require('./conexion_BD'); //se importa la conexion de la
 //Enviando los datos JSON a NODEJS API
 app.use(bp.json());
 
-
 //IMPORTACION DE LAS RUTAS DE LOS MODULOS
 const personasRoutes = require('./modulo_personas');
 app.use('/ModuloPersonas', personasRoutes); //usa esto como base de rutas
@@ -24,6 +23,10 @@ app.use('/ModuloReservas', reservasRoutes); //usa esto como base de rutas
 
 const reportesRoutes = require('./modulo_reportes');
 app.use('/ModuloReportes', reportesRoutes); //usa esto como base de rutas
+
+const facturasRoutes = require('./modulo_facturas');
+app.use('/ModuloFactura', facturasRoutes);
+
 
 // Ejecutar el server en un puerto especifico.
 app.listen(3000,()=> console.log('server Running puerto: 3000'));
