@@ -36,7 +36,10 @@ router.get("/Informacion_Personas", (req,res) =>{
 });
 
 
-// Endpoint para ELIMINAR PERSONAS
+
+
+
+//Endpoint para ELIMINAR MODULO PERSONAS
 router.delete("/Eliminar_Persona", (req, res) => {
 
     const { tabla, valores } = req.body;
