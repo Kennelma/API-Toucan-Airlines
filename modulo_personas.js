@@ -41,9 +41,6 @@ router.get("/Informacion_Personas/:tabla", (req, res) => {
 });
 
 
-
-
-
 //Endpoint para ELIMINAR MODULO PERSONAS
 router.delete("/Eliminar_Persona", (req, res) => {
 
