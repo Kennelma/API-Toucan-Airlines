@@ -5,6 +5,7 @@ const mysqlConnection = require('./conexion_BD');
 
 // Endpoint para insertar reportes
 router.post("/CrearFacturas", (req, res) => {
+
     const { cod_persona, cod_boleto, subtotal, descuento, metodo_pago} = req.body;
     const sql = "CALL INSERT_FACTURAS( ?, ?, ?, ?, ?)"; //Llamamos al procedure.
     
@@ -27,7 +28,6 @@ router.post("/CrearFacturas", (req, res) => {
 router.get("/ObtenerFacturas/:id", (req, res) => {
    
     const cod_factura = req.params.id;
-    
     const sql = "CALL SELECT_FACTURAS(?)";
   
     mysqlConnection.query(sql, [cod_factura], (err, rows) => {
@@ -42,6 +42,7 @@ router.get("/ObtenerFacturas/:id", (req, res) => {
 
 //Endpoint para actualizar factura
 router.put("/ActualizarFacturas/:id", (req, res) => {
+
     const { cod_persona, cod_boleto, fecha_facturacion, metodo_pago, descuento, subtotal } = req.body;
     const facturaId = req.params.id;
     const sql = "CALL UPDATE_FACTURAS( ?, ?, ?, ?, ?, ?, ?)"; 
@@ -62,6 +63,8 @@ router.put("/ActualizarFacturas/:id", (req, res) => {
 
 //Endpoint para eliminar una factura
 router.delete("/BorrarFacturas/:id", (req, res) => {
+    
+    
     const cod_factura = req.params.id;
     const sql = "CALL DELETE_FACTURAS (?)";
 
