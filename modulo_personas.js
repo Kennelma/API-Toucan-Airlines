@@ -22,37 +22,29 @@ router.post("/Insertar_Persona", (req, res) => {
 });
 
 
-//Endpoint para SELECCIONAR MODULO PERSONAS
-router.get("/Informacion_Personas/:tabla", (req, res) => {
-    
-    const { tabla } = req.params;
-    const sql = "CALL SELECT_PERSONAS (?)"; 
+//Endpoint para SELECCIONAR personas
+router.get("/Informacion_Personas", (req,res) =>{
+    const { tabla, valor } = req.body;
+    const sql = "CALL SELECT_PERSONAS (?, ?)"; 
 
-    mysqlConnection.query(sql, [tabla ], (err, rows) => {
-      
-        if (!err) { //Si no hay error en la consulta
-                res.status(200).json(rows[0]);
-        } else {
-                return res.status(500).send("Error en la consulta: ", err);
-        }      
-            
-        
+    mysqlConnection.query(sql, [tabla, valor], (err, rows) => {
+        if (err) {
+            return res.status(500).send("Error en la consulta.");
+        }
+        res.status(200).json(rows);
     });
 });
 
 
-
-
-
-//Endpoint para ELIMINAR MODULO PERSONAS
+// Endpoint para ELIMINAR PERSONAS
 router.delete("/Eliminar_Persona", (req, res) => {
 
-    const { tabla, id } = req.body;
+    const { tabla, valores } = req.body;
     const sql = "CALL DELETE_PERSONAS (?, ?)";
 
-    mysqlConnection.query(sql, [tabla, id], (err, rows) => {
+    mysqlConnection.query(sql, [tabla, valores], (err, rows) => {
         if (!err) {
-            res.status(200).send(` ✅ Registro con ID ${id} eliminado correctamente!`);
+            res.status(200).send(` ✅ Registro con ID ${valores} eliminado correctamente!`);
         } else {
             console.error("Error en la consulta SQL:", err);
             return res.status(500).send("Error en la consulta.");
