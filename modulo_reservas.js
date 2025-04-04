@@ -23,18 +23,25 @@ router.post("/Realizar_Reserva", (req, res) => {
 
 
 //Endpoint para SELECCIONAR reservas
-router.get("/Informacion_Reserva", (req, res) => {
+router.get("/Informacion_Reserva/:tabla", (req, res) => {
 
-    const { tabla } = req.body;  
+    const { tabla } = req.params;  
 
     const sql = "CALL SELECT_RESERVAS(?)";
 
     mysqlConnection.query(sql, [tabla], (err, rows) => {
-        if (err) {
-            console.error("Error en la consulta SQL:", err); 
-            return res.status(500).send("Error en la consulta.");
+
+        if (rows[0].length === 0) { //Si ese registro no existe
+            res.status(404).json({ message: "No se encontró información para el ID proporcionado." });
+        
+        }else {
+
+            if (!err) { //Si no hay error en la consulta
+                res.status(200).json(rows[0]);
+            } else {
+                return res.status(500).send("Error en la consulta: ", err);
+            }      
         }
-        res.status(200).json(rows);
     });
 });
 
