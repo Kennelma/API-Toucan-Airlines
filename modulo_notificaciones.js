@@ -15,7 +15,7 @@ router.post("/CrearNotificacion", (req, res) => {
     mysqlConnection.query(sql, [tipo_notificacion, tipo_alerta, cod_reserva, prioridad, mensaje], (err, rows) => {
             
             if (!err) {
-                console.log("Respuesta de la base de datos:", rows);  // Depuración
+                console.log("Respuesta de la base de datos:", rows); 
                 res.send("Notificación ingresada correctamente!");
             } else {
                 console.error("Error al insertar notificación:", err);
@@ -42,6 +42,44 @@ router.delete("/BorrarNotificacion/:id", (req, res) => {
     });
 });
 
+//Endpoint para seleccionar notificaciones GET
+router.get("/GetNotificaciones", (req, res) => {
+    const { valor } = req.query;
+    const sql = "CALL SELECT_NOTIFICACIONES(?)";
+    
+    mysqlConnection.query(sql, [valor], (err, rows) => {
+        if (!err) {
+            res.status(200).json(rows[0]); //Devuelve notificaciones
+        } else {
+            console.error("Error al seleccionar notificaciones:", err);
+            res.status(500).send("Error al seleccionar notificaciones.");
+        }
+    });
+});
 
-// Exportamos el router
+// Endpoint para actualizar notificaciones UPDATE
+router.put("/ActualizarNotificacion", (req, res) => {
+    const notificacion = req.body; 
+    const sql = "CALL UPDATE_NOTIFICACIONES(?, ?, ?, ?, ?, ?)";
+
+    mysqlConnection.query(
+        sql, 
+        [
+            notificacion.cod_notificacion, 
+            notificacion.cod_reserva, 
+            notificacion.tipo_notificacion, 
+            notificacion.tipo_alerta, 
+            notificacion.prioridad, 
+            notificacion.mensaje                            
+
+        ], (err, rows) => {
+        if (!err) {
+                res.status(200).send("Notificacion actualizado correctamente!");
+            } else {
+                console.error("Error al actualizar Notificacion:", err);
+                res.status(500).send("Error al actualizar Notificacion.");
+            }
+    });
+});
+
 module.exports = router;
