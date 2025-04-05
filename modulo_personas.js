@@ -1,33 +1,13 @@
-const mysql = require('mysql');
 const express = require('express');
 const router = express.Router();
-
-// conectar a la base de datos (MYSQL)
-var mysqlConnection = mysql.createConnection({
-    host: '142.44.161.115',
-    user: '1700PAC12025Equi3',
-    port: 3306,
-    password: '1700PAC12025Equi3#49',
-    database: '1700PAC12025Equi3',
-    multipleStatements: true
-});
-
-// Test de conexion abase de datos
-mysqlConnection.connect((err)=>{
-    if (!err){
-        console.log('Conexion Exitosa');
-    } else { 
-        console.log('Error al conectar la base de datos', err.message);
-    }
-});
-
+const mysqlConnection = require('./conexion_BD'); //se importa la conexion de la base de datos
 
 //Endpoint para INSERTAR personas
 router.post("/Insertar_Persona", (req, res) => {
     const { tabla, valores } = req.body;
     const sql = "CALL INSERT_PERSONAS (?, ?)"; 
 
-    console.log("Datos recibidos:", req.body);
+    console.log(" 📥 Datos recibidos:", req.body);
 
     // Realizar la consulta a la base de datos
     mysqlConnection.query(sql, [tabla, valores], (err, rows) => {
@@ -36,25 +16,64 @@ router.post("/Insertar_Persona", (req, res) => {
             res.status(500).send("Error al insertar datos");
         } else {
             console.log("Respuesta de la base de datos:", rows);
-            res.send("Datos ingresados correctamente");
+            res.send(" ✅ Datos ingresados correctamente");
         }
     });
 });
 
 
-//Endpoint para SELECCIONAR personas
-router.get("/Informacion_Personas", (req,res) =>{
-    const { tabla, valor } = req.query;
-    const sql = "CALL SELECT_PERSONAS (?, ?)"; 
+//Endpoint para SELECCIONAR MODULO PERSONAS
+router.get("/Informacion_Personas/:tabla", (req, res) => {
+    
+    const { tabla } = req.params;
+    const sql = "CALL SELECT_PERSONAS (?)"; 
 
-    mysqlConnection.query(sql, [tabla, valor], (err, rows) => {
-        if (err) {
+    mysqlConnection.query(sql, [tabla ], (err, rows) => {
+      
+        if (!err) { //Si no hay error en la consulta
+                res.status(200).json(rows[0]);
+        } else {
+                return res.status(500).send("Error en la consulta: ", err);
+        }      
+            
+        
+    });
+});
+
+
+//Endpoint para ELIMINAR MODULO PERSONAS
+router.delete("/Eliminar_Persona", (req, res) => {
+
+    const { tabla, id } = req.body;
+    const sql = "CALL DELETE_PERSONAS (?, ?)";
+
+    mysqlConnection.query(sql, [tabla, id], (err, rows) => {
+        if (!err) {
+            res.status(200).send(` ✅ Registro con ID ${id} eliminado correctamente!`);
+        } else {
+            console.error("Error en la consulta SQL:", err);
             return res.status(500).send("Error en la consulta.");
-        }
-        res.status(200).json(rows);
+        }    
+        
     });
 });
 
+// Endpoint para ACTUALIZAR PERSONAS
+router.put("/Actualizar_Persona", (req, res) => {
+
+    const { tabla, id, valores } = req.body;
+    const camposUpdate = Object.keys(valores).map(key => `\`${key}\` = '${valores[key]}'`).join(', ');
+
+    const sql = "CALL UPDATE_PERSONAS (?, ?, ?)";
+    mysqlConnection.query(sql, [tabla, id, camposUpdate], (err, rows) => {
+        if (!err) {
+            res.status(200).send(` ✅ Registro con ID ${id} actualizado correctamente!`);
+        } else {
+            console.error("Error en la consulta SQL:", err);
+            return res.status(500).send("Error en la consulta.");
+        }    
+    });
+});
 
 //SE EXPORTA EL ROUTER PARA QUE SE PUEDA USAR EN EL INDEX.JS
 module.exports = router;
