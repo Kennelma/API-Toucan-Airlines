@@ -21,7 +21,6 @@ router.post("/Insertar_Persona", (req, res) => {
     });
 });
 
-
 //Endpoint para SELECCIONAR MODULO PERSONAS
 router.get("/Informacion_Personas/:tabla", (req, res) => {
     
@@ -31,9 +30,9 @@ router.get("/Informacion_Personas/:tabla", (req, res) => {
     mysqlConnection.query(sql, [tabla ], (err, rows) => {
       
         if (!err) { //Si no hay error en la consulta
-                res.status(200).json(rows[0]);
+            res.status(200).json(rows[0]);
         } else {
-                return res.status(500).send("Error en la consulta: ", err);
+            return res.status(500).send("Error en la consulta: ", err);
         }      
             
         
@@ -58,7 +57,7 @@ router.delete("/Eliminar_Persona", (req, res) => {
     });
 });
 
-// Endpoint para ACTUALIZAR PERSONAS
+//Endpoint para ACTUALIZAR PERSONAS
 router.put("/Actualizar_Persona", (req, res) => {
 
     const { tabla, id, valores } = req.body;
